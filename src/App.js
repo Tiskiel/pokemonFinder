@@ -1,30 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-import PokedexForm from './Components/Pokedex/PokedexForm';
-import Pokedex from './Components/Pokedex/Pokedex';
-import { useState } from 'react';
-import PokedexShow from './Components/Pokedex/PokedexShow';
-
+import {Routes, Route, Navigate} from 'react-router-dom'
+import PokemonDetails from './Components/Pages/PokemonDetails/PokemonDetails';
+import FullPokedex from './Components/Pages/FullPokedex/FullPokedex';
 
 function App() {
-const [name, setName] = useState("pikachu")
-const [number, setNumber] = useState('')
 
-const onName = (pkmn) => {
-  setName(pkmn)
-}
-
-const onNumber = (num) => {
-  setNumber(num)
-}
 
   return (
     <div>
-        <PokedexForm getName={onName} getNumber={onNumber}/>
-        <br />
-        <Pokedex pkmn={name} />
-        <br />
-        <PokedexShow number={number}/>
+        <Routes>
+          <Route path='/home' element={<FullPokedex />} />
+          <Route path='/pokemon/:pokemonID' element={<PokemonDetails />} />
+          <Route path='*' element={<Navigate to="/home" replace/>}/>
+        </Routes>
     </div>
   );
 }

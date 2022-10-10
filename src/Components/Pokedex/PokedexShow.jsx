@@ -13,15 +13,15 @@ export default function PokedexShow(props) {
     ))
 
     const fetch = async (number) => {
-        if(number === 0 || number === '') return
-        const pokemons = []
+        if(number === 0 || number === '' || number >= 1000) return
+        
         for(let i = 1; i<= number; i++){
             const response = await axios.get('https://pokeapi.co/api/v2/pokemon/' + i)
             const responseSpecies = await axios.get('https://pokeapi.co/api/v2/pokemon-species/' + i)
 
             const data = response.data
             const dataSpecies = responseSpecies.data
-            pokemons.push({
+            setData(currentValue => [...currentValue, {
                 tagID : nanoid(),
                 name : data.name,
                 nameFr : dataSpecies.names.find(el => el.language.name === "fr").name,
@@ -29,21 +29,26 @@ export default function PokedexShow(props) {
                 nameJap : dataSpecies.names.find(el => el.language.name === "ja-Hrkt").name,
                 img : data.sprites.other["official-artwork"].front_default,
                 description : dataSpecies.flavor_text_entries.find(el => el.language.name === "fr").flavor_text
-            })
+            }])
             
         }
-        setData(pokemons)
         number = 0;
     }
 
     useEffect(() =>{
+
         fetch(number)
     }, [number])
+    
+    const handlePage = () => {
+
+    }
 
     console.log(data);
     return (
         <>
-            <div className='grid sm:grid-cols-2 xl:grid-cols-6 2xl:grid-cols-6 gap-4'>
+            <div className='grid sm:grid-cols-2 xl:grid-cols-6 2xl:grid-cols-6 gap-4'
+            onClick={handlePage}>
                 {monster}
             </div>
         </>

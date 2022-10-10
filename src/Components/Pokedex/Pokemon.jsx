@@ -1,6 +1,7 @@
 import React from 'react'
 import {v4 as id} from 'uuid'
 import { nanoid } from 'nanoid'
+import { Link } from 'react-router-dom'
 
 export default function Pokemon(props) {
 
@@ -72,23 +73,25 @@ export default function Pokemon(props) {
     })
     
     return (
-        <div className='grid grid-cols-1'>
-            <div class="place-self-center border max-w-sm rounded-lg overflow-hidden shadow-lg">
-                <div className='grid grid-cols-1 '>
-                    <img class="w-40 place-self-center" src={img} alt={name} />
-                    <div class="px-6 py-4">
-                        <div class="font-bold text-xl mb-2">Nom fr : {nameFr} | Nom Japonais : {nameJap}</div>
-                        <div class="text-gray-700 text-base">
-                        <p>Son/ses type(s) : </p>
-                        <div className='mb-2 mt-2'>                                   
-                        {types}
-                        </div>
-                        <p>{description}</p>
+        <Link to={`./${name}`}>
+            <div className='grid grid-cols-1 cursor-pointer'>
+                <div class="place-self-center border max-w-sm rounded-lg overflow-hidden shadow-lg">
+                    <div className='grid grid-cols-1 '>
+                        <img class="w-40 place-self-center" src={img} alt={name} />
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">Nom fr : {nameFr} | Nom Japonais : {nameJap}</div>
+                            <div class="text-gray-700 text-base">
+                            <p>Son/ses type(s) : </p>
+                            <div className='mb-2 mt-2'>                                   
+                            {types}
+                            </div>
+                            <p>{description}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 
